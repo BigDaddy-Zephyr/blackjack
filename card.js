@@ -18,6 +18,7 @@ function deck() {
 
    return cards.sort( () => Math.random() - 0.5);
 }
-console.log(deck());
 
-
+let hand = deck();
+let play_hand = [hand.pop(), hand.pop()]
+console.log(play_hand);

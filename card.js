@@ -5,7 +5,7 @@ function card(value, name, suit) {
 }
 
 function deck() {
-  this.names = ['A', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K'];
+  this.names = [ '2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K','A'];
   this.suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
   var cards = [];
 
@@ -15,10 +15,34 @@ function deck() {
 
     }
   }
-
-   return cards.sort( () => Math.random() - 0.5);
+  
+  return cards.sort( () => Math.random() - 0.5);
 }
 
-let hand = deck();
-let play_hand = [hand.pop(), hand.pop()]
-console.log(play_hand);
+var hand = deck();
+// console.log(hand);
+// playerhand
+function hit(){
+   return [hand.pop(), hand.pop()]
+}
+// console.log(hit());
+// DealerHand 
+function dealHand(){
+  return hit();
+  
+} 
+// console.log(dealHand());
+
+function cardCount(){
+  var sum = 0;
+ var result = hit().map(a => a.name);
+ console.log(parseInt( result));
+//  for(let i = 0; i<result.length; i++){
+//    if(result[i] == 'A' ){
+//      result= 10
+//    }
+//   sum = sum+result[i];
+//  }
+//  return sum;
+}
+console.log(cardCount());

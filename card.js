@@ -1,4 +1,4 @@
-function card(value, name, suit) {
+ function card(value, name, suit) {
   this.value = value;
   this.name = name;
   this.suit = suit;
@@ -25,98 +25,101 @@ function deck() {
 
   return cards.sort(function abc() { return Math.random() - 0.5 });    //generating random cards
 }
-// console.log(cards);
+
 let hand = deck();
-// console.log(hand);
 var play_hand = []
+var comp_hand = []
 var hand_count = 0;
-var count = 0;
-// let play_hand = [hand.pop(), hand.pop()]
-console.log("cards for player")
-//generating 2 cards for player
-hit();
-hit();
 
+var count=0, countp = 0, countc=0;
+
+
+//generating 2 cards for player and dealer
+hit();
+hit();
+console.log("Cards for Player : ")
 console.log(play_hand);
-count1();
-function hit() {
-
-
-  play_hand.push(hand.pop());
-  // play_hand = deck.push(hand.pop());
-
-}
-// console.log(play_hand);
+countp=count1();
+console.log("\nPlayer : "+countp+"\n");
+console.log("Cards for Dealer : ");
+console.log(comp_hand);
+countc=count2();
+console.log("Dealer : "+countc);
 
 
 
-// let comp_hand = deck.push(hand.pop());
-console.log("cards for computer");
-// console.log(comp_hand);                       //generating 2 cards for computer
-
-
+//Counting total cards of Player
 function count1() {
+  for (var s = 0; s < play_hand.length; s++) 
+  {
+    count+=play_hand[s].value;
 
-  for (var s = 0; s < play_hand.length; s++) {
-    if (play_hand[s].name == 'A' && count + play_hand[s].value < 21)
-      console.log(count + play_hand[s].value)
-    else {
-      console.log(count + 1);
+    if(play_hand[0].name=='A' && play_hand[s].name=='K'|| play_hand[0].name=='A' && play_hand[s].name=='Q'||
+    play_hand[0].name=='A' && play_hand[s].name=='J'||play_hand[0].name=='K' && play_hand[s].name=='A'||
+    play_hand[0].name=='Q' && play_hand[s].name=='A'||play_hand[0].name=='J' && play_hand[s].name=='A')
+    {  console.log("\n B L A C K J A C K !\n Player Won!")
     }
-  }
-  
-  console.log(play_hand[s]);
-  count = count + play_hand[s].value;
 
+    else if (play_hand[s].name == "A" && count<11)
+    {
+      play_hand[s].value=11;     
+      console.log("-- A is 11 --")
+      count+=10;
+    }
+    else if(play_hand[s].value == "A" && count>11)
+    {
+      play_hand[s].value=1;
+      console.log("-- A is 1 --")
+    }
 
-
+    
+}
+return count;
 }
 
-// for (var n = 0; n < play_hand.length; n++) {
-count = count + play_hand[s].value;
-console.log(count);
+//counting total Dealer's cards
+function count2() {
+  count=0;
+  for (var s = 0; s < comp_hand.length; s++) 
+  {
+    count+=comp_hand[s].value;
 
-//returns the count of the cards, 
-// one important condition here is the one for A(it can have 1 or 11 as values)
+    if(comp_hand[0].name=='A' && comp_hand[s].name=='K'|| comp_hand[0].name=='A' && comp_hand[s].name=='Q'||
+    comp_hand[0].name=='A' && comp_hand[s].name=='J'||comp_hand[0].name=='K' && comp_hand[s].name=='A'||
+    comp_hand[0].name=='Q' && comp_hand[s].name=='A'||comp_hand[0].name=='J' && comp_hand[s].name=='A')
+    {  console.log("\n B L A C K J A C K !\n Dealer Won!")
+    }
+
+      if (comp_hand[s].name == "A" && count<=11){
+        comp_hand[s].value=11;     
+        console.log("-- A is 11 --")
+        count+=10;
+  }
+    else if(comp_hand[s].value == "A" && count>11)
+    {
+      comp_hand[s].value=1;
+      console.log("-- A is 1 --")
+    }
+}
+return count;
+}
 
 
+function hit() {
+  play_hand.push(hand.pop());
+  comp_hand.push(hand.pop());
+}
 
 function split() {
   //when the player gets 2 same cards then he should have the option to split
 
 }
 
-function showdown() {
-  //function which checks counts for both player and computer and returns who won the game
 
-
+//Check for winner
+function showdown()
+{
+  if(countp>countc){console.log("Player wins!")}
+  else if(countc>countp){console.log("Dealer wins")}
+  else {console.log("PUSH!")}
 }
-
-
-
-
-
-
-// function hit() {
-
-
-
-
-
-
-//   // for (var s = 0; s < this.suits.length; s++) {
-//   //   for (var n = 0; n < this.names.length; n++) {
-//   //     if (suits[s] && names[n] == play_hand) {
-//   //       return false
-//   //       // } else if (suits[s] && names[n] == comp_hand) {
-//   //       //   return false
-//   //     }
-//   //     else {
-
-//   //       return true
-//   //     }
-//   //   }
-//   //   return play_hand
-//   // }
-// }
-// console.log(hit())

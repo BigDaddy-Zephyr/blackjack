@@ -12,12 +12,14 @@ function deck() {
   for (var s = 0; s < this.suits.length; s++) {
     for (var n = 0; n < this.names.length; n++) {
 
-      if (n == 10 || n == 11 || n == 12) {
+      if (n == 9 || n == 10 || n == 11) {
 
         cards.push(new card(10, this.names[n], this.suits[s]));
+      } else if (n === 12) {
+        cards.push(new card(11, this.names[n], this.suits[s]));
       }
       else {
-        cards.push(new card(n + 1, this.names[n], this.suits[s]));
+        cards.push(new card(n + 2, this.names[n], this.suits[s]));
       }
 
     }
@@ -42,20 +44,35 @@ var j = 0;
 var comp_count = 0;
 
 
+function display(target, hand) {
+  hand.forEach((card, index) => {
+    let element = document.createElement('p');
+    element.innerHTML = card.value;
+    document.getElementById(target).appendChild(element);
+  })
+}
+
+
+
 //generating 2 cards for player and dealer
 var total = 0;
 $(function () {
   $('#deal').click(function () {
-    document.getElementById("output1").innerHTML = play_hand[0].value;
-    document.getElementById("output2").innerHTML = play_hand[1].value;
-    // total = play_hand[0].value + play_hand[1].value;
+    // document.getElementById("output1").innerHTML = play_hand[0].value;
+    // document.getElementById("output2").innerHTML = play_hand[1].value;
+    total = play_hand[0].value + play_hand[1].value;
+    $("#play_hand").empty();
+    display("play_hand", play_hand);
     displayCount();
   });
   $('#stand').click(function () {
     comp_hand.push(hand.pop());
     comp_hand.push(hand.pop());
-    document.getElementById("cc1").innerHTML = comp_hand[0].value;
-    document.getElementById("cc2").innerHTML = comp_hand[1].value;
+    $("#comp_hand").empty();
+    display("comp_hand", comp_hand);
+    // $("#play_hand").empty();
+    // document.getElementById("cc1").innerHTML = comp_hand[0].value;
+    // document.getElementById("cc2").innerHTML = comp_hand[1].value;
     $("#hit").attr("disabled", true);
     // for (var s = 0, count = 0; s < comp_hand.length; s++) {
     //   comp_count += comp_hand[s].value;
@@ -69,10 +86,12 @@ $(function () {
         comp_count += comp_hand[s].value;
         document.getElementById("total_c").innerHTML = comp_count;
       }
-
-      if (comp_count > player_count()) {
+      let play_count = player_count();
+      console.log("Computer count", comp_count);
+      console.log("Player count", play_count);
+      if (comp_count > play_count) {
         // document.getElementById("cc3").innerHTML = comp_hand[2].value;
-        if (comp_count >= 21) {
+        if (comp_count > 21) {
           comp_count = 0;
           document.getElementById("bust_c").innerHTML = "BUST";
         }
@@ -85,22 +104,27 @@ $(function () {
         k = 0;
         break;
       }
-
-
-
-
-
-      if (comp_count > 21) {
-        comp_count = 0;
+      if (comp_count == play_count) {
         alert(showdown());
         k = 0;
         break;
       }
+
+
+
+
+      // if (comp_count > 21) {
+      //   comp_count = 0;
+      //   alert(showdown());
+      //   k = 0;
+      //   break;
+      // }
       if (comp_count < 21) {
         if (comp_count < player_count()) {
           comp_hand.push(hand.pop());
-
-          document.getElementById("cc3").innerHTML = comp_hand[2].value;
+          $("#comp_hand").empty();
+          display("comp_hand", play_hand);
+          // document.getElementById("cc3").innerHTML = comp_hand[2].value;////////////
           comp_count = 0;
           for (var s = 0, count = 0; s < comp_hand.length; s++) {
             comp_count += comp_hand[s].value;
@@ -119,8 +143,25 @@ $(function () {
 
 
   );
+
+  // function actualHandCount(anarray){
+
+  //   for (var s = 0, count = 0; s < anarrya.length; s++) {
+  //     comp_count += comp_hand[s].value;
+
+  //   }
+  // }
+
   $('#hit').click(function () {
-    document.getElementById("hC").innerHTML = addingHit();
+    hit();
+    // play_hand.forEach(=>{
+
+
+
+    // })
+    $("#play_hand").empty();
+    display("play_hand", play_hand);
+    // document.getElementById("hC").innerHTML = addingHit();
 
     // document.getElementById("total").innerHTML = total + update;
   });
@@ -190,32 +231,32 @@ function displayCount() {
 
 
 //counting total Dealer's cards
-function count2() {
-  count = 0;
-  for (var s = 0; s < comp_hand.length; s++) {
-    count += comp_hand[s].value;
+// function count2() {
+//   count = 0;
+//   for (var s = 0; s < comp_hand.length; s++) {
+//     count += comp_hand[s].value;
 
-    if (comp_hand[0].name == 'A' && comp_hand[s].name == 'K' || comp_hand[0].name == 'A' && comp_hand[s].name == 'Q' ||
-      comp_hand[0].name == 'A' && comp_hand[s].name == 'J' || comp_hand[0].name == 'K' && comp_hand[s].name == 'A' ||
-      comp_hand[0].name == 'Q' && comp_hand[s].name == 'A' || comp_hand[0].name == 'J' && comp_hand[s].name == 'A') {
-      console.log("\n B L A C K J A C K !\n Dealer Won!")
-    }
+//     if (comp_hand[0].name == 'A' && comp_hand[s].name == 'K' || comp_hand[0].name == 'A' && comp_hand[s].name == 'Q' ||
+//       comp_hand[0].name == 'A' && comp_hand[s].name == 'J' || comp_hand[0].name == 'K' && comp_hand[s].name == 'A' ||
+//       comp_hand[0].name == 'Q' && comp_hand[s].name == 'A' || comp_hand[0].name == 'J' && comp_hand[s].name == 'A') {
+//       console.log("\n B L A C K J A C K !\n Dealer Won!")
+//     }
 
-    if (comp_hand[s].name == "A" && count <= 11) {
-      comp_hand[s].value = 11;
-      console.log("-- A is 11 --")
-      count += 10;
-    }
+//     if (comp_hand[s].name == "A" && count <= 11) {
+//       comp_hand[s].value = 11;
+//       console.log("-- A is 11 --")
+//       count += 10;
+//     }
 
-    else if (comp_hand[s].value == "A" && count > 11) {
-      comp_hand[s].value = 1;
-      console.log("-- A is 1 --")
-    }
-  }
+//     else if (comp_hand[s].value == "A" && count > 11) {
+//       comp_hand[s].value = 1;
+//       console.log("-- A is 1 --")
+//     }
+//   }
 
-  return count;
+//   return count;
 
-}
+// }
 
 function player_count() {
   temp = 0;
@@ -242,6 +283,28 @@ function player_count() {
 
 function hit() {
   play_hand.push(hand.pop());
+
+  for (var s = 0; s < play_hand.length; s++) {
+
+    if (play_hand[s].name == "A" && temp > 11) {
+      play_hand[s].value = 1;
+      console.log("-- A is 1 --")
+      // temp = temp - 10;
+    }
+    // if (play_hand[s].name == "A" && player_count() <= 11) {
+    //   play_hand[s].value = 11;
+    //   console.log("-- A is 11 --")
+    //   // count += 10;
+    // }
+  }
+  // for(play_hand.value)
+
+
+  // console.log("////////");
+  $("#play_hand").empty();
+  display("play_hand", play_hand);
+  // total = play_hand[0].value + play_hand[1].value;
+  displayCount();
   // comp_hand.push(hand.pop());
   j++;
   if (j > 2) {
@@ -251,16 +314,17 @@ function hit() {
 }
 
 
-function addingHit() {
+// function addingHit() {
 
-  hit();
+//   hit();
+
+//   $("#play_hand").empty();
+//   display("play_hand", play_hand);
+//   // document.getElementById("output3").innerHTML = play_hand[2].value;
 
 
-  document.getElementById("output3").innerHTML = play_hand[2].value;
-
-
-  return play_hand[play_hand.length].value;
-}
+//   // return play_hand[play_hand.length].value;
+// }
 
 
 function compHit() {

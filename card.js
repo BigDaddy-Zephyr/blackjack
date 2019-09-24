@@ -25,9 +25,9 @@ function deck() {
   return cards.sort(() => Math.random() - 0.5);
 }
 ;
-
+var k = 1;
 let hand = deck();
-console.log(hand);
+// console.log(hand);
 
 
 
@@ -36,32 +36,105 @@ console.log(hand);
 var play_hand = []
 var comp_hand = []
 var hand_count = 0;
-
+var temp = 0;
 var count = 0, countp = 0, countc = 0;
+var j = 0;
+var comp_count = 0;
 
 
 //generating 2 cards for player and dealer
-
+var total = 0;
 $(function () {
   $('#deal').click(function () {
     document.getElementById("output1").innerHTML = play_hand[0].value;
     document.getElementById("output2").innerHTML = play_hand[1].value;
+    // total = play_hand[0].value + play_hand[1].value;
+    displayCount();
   });
-  $('#deal').click(function () {
+  $('#stand').click(function () {
+    comp_hand.push(hand.pop());
+    comp_hand.push(hand.pop());
     document.getElementById("cc1").innerHTML = comp_hand[0].value;
     document.getElementById("cc2").innerHTML = comp_hand[1].value;
-  });
+    $("#hit").attr("disabled", true);
+    // for (var s = 0, count = 0; s < comp_hand.length; s++) {
+    //   comp_count += comp_hand[s].value;
+    // }
+
+
+    while (k) {
+      comp_count = 0;
+      for (var s = 0, count = 0; s < comp_hand.length; s++) {
+
+        comp_count += comp_hand[s].value;
+        document.getElementById("total_c").innerHTML = comp_count;
+      }
+
+      if (comp_count > player_count()) {
+        // document.getElementById("cc3").innerHTML = comp_hand[2].value;
+        if (comp_count >= 21) {
+          comp_count = 0;
+          document.getElementById("bust_c").innerHTML = "BUST";
+        }
+        alert(showdown());
+        k = 0;
+        break;
+      }
+      if (comp_count == 21) {
+        alert(showdown());
+        k = 0;
+        break;
+      }
+
+
+
+
+
+      if (comp_count > 21) {
+        comp_count = 0;
+        alert(showdown());
+        k = 0;
+        break;
+      }
+      if (comp_count < 21) {
+        if (comp_count < player_count()) {
+          comp_hand.push(hand.pop());
+
+          document.getElementById("cc3").innerHTML = comp_hand[2].value;
+          comp_count = 0;
+          for (var s = 0, count = 0; s < comp_hand.length; s++) {
+            comp_count += comp_hand[s].value;
+          }
+          document.getElementById("total_c").innerHTML = comp_count;
+          // k = 0;
+        }
+
+
+      }
+    }
+
+
+
+  }
+
+
+  );
   $('#hit').click(function () {
-    document.getElementById("hC").innerHTML = updatedValue();
+    document.getElementById("hC").innerHTML = addingHit();
+
+    // document.getElementById("total").innerHTML = total + update;
   });
   // $('#count').click(function () {
   //   document.getElementById("count").innerHTML = count1();
   // });
-  $('#stand').click(function () {
-    alert(showdown());
-  })
+  // $('#stand').click(function () {
+
+
+  //   // alert(showdown());
+  // })
 
 });
+let update = updatedValue();
 function updatedValue() {
   var x = hand.pop();
   console.log(x.value);
@@ -107,6 +180,15 @@ function count1() {
   return count;
 }
 
+function displayCount() {
+
+
+  document.getElementById("total").innerHTML = player_count();
+
+
+}
+
+
 //counting total Dealer's cards
 function count2() {
   count = 0;
@@ -135,11 +217,64 @@ function count2() {
 
 }
 
+function player_count() {
+  temp = 0;
+  for (var i = 0; i < play_hand.length; i++) {
+
+    temp = play_hand[i].value + temp;
+  }
+
+  if (temp == 21) {
+    document.getElementById("bust").innerHTML = "HOLY SHIT 21!";
+    $("#hit").attr("disabled", true);
+  }
+
+  if (temp > 21) {
+    document.getElementById("bust").innerHTML = "BUST";
+    $("#hit").attr("disabled", true);
+    temp = 0;
+
+  }
+  return temp;
+}
+
+
 
 function hit() {
   play_hand.push(hand.pop());
-  comp_hand.push(hand.pop());
+  // comp_hand.push(hand.pop());
+  j++;
+  if (j > 2) {
+    // console.log("////////");
+    displayCount();
+  }
 }
+
+
+function addingHit() {
+
+  hit();
+
+
+  document.getElementById("output3").innerHTML = play_hand[2].value;
+
+
+  return play_hand[play_hand.length].value;
+}
+
+
+function compHit() {
+
+
+  for (var s = 0; s < comp_hand.length; s++) {
+    count += comp_hand[s].value;
+  }
+
+
+
+
+}
+
 function split() {
   //when the player gets 2 same cards then he should have the option to split
 
@@ -148,8 +283,8 @@ function split() {
 
 //Check for winner
 function showdown() {
-  if (countp > countc) { return ("Player wins!") }
-  else if (countc > countp) { return ("Dealer wins") }
+  if (temp > comp_count) { return ("Player wins!") }
+  else if (comp_count > temp) { return ("Dealer wins") }
   else { return ("PUSH!") }
 }
 

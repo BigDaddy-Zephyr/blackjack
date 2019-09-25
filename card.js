@@ -95,17 +95,17 @@ $(function () {
           comp_count = 0;
           document.getElementById("bust_c").innerHTML = "BUST";
         }
-        alert(showdown());
+        setTimeout(function(){  alert(showdown()); }, 1000);
         k = 0;
         break;
       }
       if (comp_count == 21) {
-        alert(showdown());
+        setTimeout(function(){  alert(showdown()); }, 1000);
         k = 0;
         break;
       }
       if (comp_count == play_count) {
-        alert(showdown());
+        setTimeout(function(){  alert(showdown()); }, 1000);
         k = 0;
         break;
       }
@@ -173,6 +173,10 @@ $(function () {
 
   //   // alert(showdown());
   // })
+
+   $('#refresh').click(function(){
+    location.reload();
+  })
 
 });
 let update = updatedValue();

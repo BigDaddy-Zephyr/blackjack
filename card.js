@@ -6,9 +6,8 @@ function card(value, name, suit) {
 
 function deck() {
   this.names = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-  this.suits = ['Hearts', 'Diamonds', 'Spades', 'Clubs'];
+  this.suits = ['\u2665', "\u2662", "\u2664", "\u2667"];
   var cards = [];
-
   for (var s = 0; s < this.suits.length; s++) {
     for (var n = 0; n < this.names.length; n++) {
 
@@ -47,8 +46,15 @@ var comp_count = 0;
 function display(target, hand) {
   hand.forEach((card, index) => {
     let element = document.createElement('p');
-    element.innerHTML = card.value + " " + card.suit;
+    // element.innerHTML = card.value;
+    element.innerHTML = card.name + " of " + card.suit
+
     document.getElementById(target).appendChild(element);
+
+    // document.getElementById('play_hand').innerHTML = "<span style=' color: red;'></span>";
+
+
+
   })
 }
 
@@ -60,7 +66,7 @@ $(function () {
   $('#deal').click(function () {
     // document.getElementById("output1").innerHTML = play_hand[0].value;
     // document.getElementById("output2").innerHTML = play_hand[1].value;
-    total = play_hand[0].value + play_hand[1].value;
+    // total = play_hand[0].value + play_hand[1].value;
     $("#play_hand").empty();
     display("play_hand", play_hand);
     displayCount();
@@ -84,7 +90,7 @@ $(function () {
       for (var s = 0, count = 0; s < comp_hand.length; s++) {
 
         comp_count += comp_hand[s].value;
-        document.getElementById("total_c").innerHTML = comp_count;
+        document.getElementById("total_c").innerHTML = "Count is " + comp_count;
       }
       let play_count = player_count();
       console.log("Computer count", comp_count);
@@ -95,17 +101,17 @@ $(function () {
           comp_count = 0;
           document.getElementById("bust_c").innerHTML = "BUST";
         }
-        setTimeout(function(){  alert(showdown()); }, 1000);
+        showdown();
         k = 0;
         break;
       }
       if (comp_count == 21) {
-        setTimeout(function(){  alert(showdown()); }, 1000);
+        showdown();
         k = 0;
         break;
       }
       if (comp_count == play_count) {
-        setTimeout(function(){  alert(showdown()); }, 1000);
+        showdown();
         k = 0;
         break;
       }
@@ -123,7 +129,7 @@ $(function () {
         if (comp_count < player_count()) {
           comp_hand.push(hand.pop());
           $("#comp_hand").empty();
-          display("comp_hand", play_hand);
+          display("comp_hand", comp_hand);
           // document.getElementById("cc3").innerHTML = comp_hand[2].value;////////////
           comp_count = 0;
           for (var s = 0, count = 0; s < comp_hand.length; s++) {
@@ -174,10 +180,6 @@ $(function () {
   //   // alert(showdown());
   // })
 
-   $('#refresh').click(function(){
-    location.reload();
-  })
-
 });
 let update = updatedValue();
 function updatedValue() {
@@ -195,9 +197,9 @@ countp = count1();
 console.log("\nPlayer : " + countp + "\n");
 console.log("Cards for Dealer : ");
 console.log(comp_hand);
-countc = count2();
+// countc = count2();
 console.log("Dealer : " + countc);
-showdown();
+// showdown();
 
 //Counting total cards of Player
 function count1() {
@@ -228,7 +230,7 @@ function count1() {
 function displayCount() {
 
 
-  document.getElementById("total").innerHTML = player_count();
+  document.getElementById("total").innerHTML = "Count is " + player_count();
 
 
 }
@@ -351,8 +353,7 @@ function split() {
 
 //Check for winner
 function showdown() {
-  if (temp > comp_count) { return ("Player wins!") }
-  else if (comp_count > temp) { return ("Dealer wins") }
-  else { return ("PUSH!") }
+  if (temp > comp_count) { document.getElementById("result").innerHTML = "Player wins!" }
+  else if (comp_count > temp) { document.getElementById("result").innerHTML = "Dealer wins" }
+  else { return document.getElementById("result").innerHTML = "PUSH!" }
 }
-

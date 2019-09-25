@@ -6,31 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous">
-        </script>
+        integrity="sha256-pasqAKBDmFT4eHoN2ndd6lN370kFiGUFyTiUHWhU7k8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
     <title>Blackjack</title>
 </head>
 
 <body>
-    <button id="deal">Deal</button>
-    <h1>Player card</h1>
-    <div id="play_hand">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-6 text-center mt-5">
+                <h1 class="text-light">Player cards</h1>
+                <h3 class="text-muted" id="play_hand"></h3>
+                <h3 class="text-muted" id="total">Total :</h3>
+                <h1 class="text-danger" id="bust"></h1>
+                <p id="hC"></p>
+            </div>
+
+            <div class="col-sm-6 text-center mt-5">
+                <h1 class="text-light">Dealer cards</h1>
+                <h3 class="text-muted" id="comp_hand"></h3>
+                <h3 class="text-muted" id="total_c"></h3>
+                <!-- <h3 class="text-muted" id="total"></h3> -->
+                <h1 class="text-left text-danger" id="bust_c"></h1>
+            </div>
+
+        </div>
+        <h1 class="text-center text-success" id="result"></h1>
+        <div class="center">
+            <div class="text-center">
+                <button class="btn btn-outline-success btn-lg" id="deal">Deal</button>
+                <button class="btn btn-outline-warning btn-lg" id="hit">Hit</button>
+                <button class="btn btn-outline-danger btn-lg" id="stand">stand</button>
+            </div>
+        </div>
     </div>
 
-    <p id="bust"></p>
-    <p id="total">Total :</p>
-    <p id="hC"></p>
-    <h1>computer card</h1>
-    <div id="comp_hand">
-    </div>
-    <p id="total_c"></p>
-    <p id="bust_c"></p>
-    <button id="hit">Hit</button>
-    <button id="stand">stand</button>
-
-
-
-     <button id="refresh" >Refresh</button>
     <script src="card.js"> </script>
 </body>
 

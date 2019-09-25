@@ -47,7 +47,7 @@ var comp_count = 0;
 function display(target, hand) {
   hand.forEach((card, index) => {
     let element = document.createElement('p');
-    element.innerHTML = card.value;
+    element.innerHTML = card.value + " " + card.suit;
     document.getElementById(target).appendChild(element);
   })
 }

@@ -15,35 +15,36 @@
 
 <body>
     <div class="container">
+
+
         <div class="row">
 
             <div class="col-sm-6 text-center mt-5">
                 <h1 class="text-light">Player cards</h1>
-                <h3 class="text-muted" id="play_hand"></h3>
-                <h3 class="text-muted" id="total">Total :</h3>
+                <h3 class="text-black" id="play_hand"></h3>
+                <h3 class="text-light" id="total"></h3>
                 <h1 class="text-danger" id="bust"></h1>
                 <p id="hC"></p>
             </div>
 
             <div class="col-sm-6 text-center mt-5">
                 <h1 class="text-light">Dealer cards</h1>
-                <h3 class="text-muted" id="comp_hand"></h3>
-                <h3 class="text-muted" id="total_c"></h3>
+                <h3 class="text-black" id="comp_hand"></h3>
+                <h3 class="text-light" id="total_c"></h3>
                 <!-- <h3 class="text-muted" id="total"></h3> -->
                 <h1 class="text-left text-danger" id="bust_c"></h1>
             </div>
 
         </div>
         <h1 class="text-center text-success" id="result"></h1>
-        <div class="center">
-            <div class="text-center">
-                <button class="btn btn-outline-success btn-lg" id="deal">Deal</button>
-                <button class="btn btn-outline-warning btn-lg" id="hit">Hit</button>
-                <button class="btn btn-outline-danger btn-lg" id="stand">stand</button>
-            </div>
-        </div>
-    </div>
 
+
+    </div>
+    <div class="text-center buttons">
+        <button class="btn btn-outline-success btn-lg" id="deal">Deal</button>
+        <button class="btn btn-outline-warning btn-lg" id="hit">Hit</button>
+        <button class="btn btn-outline-danger btn-lg" id="stand">Stand</button>
+    </div>
     <script src="card.js"> </script>
 </body>
 

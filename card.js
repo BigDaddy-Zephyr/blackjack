@@ -213,7 +213,7 @@ function updatedValue() {
 
 console.log("Cards for Player : ")
 console.log(play_hand);
-countp = count1();
+// countp = count1();
 console.log("\nPlayer : " + countp + "\n");
 console.log("Cards for Dealer : ");
 console.log(comp_hand);
@@ -222,30 +222,30 @@ console.log("Dealer : " + countc);
 // showdown();
 
 //Counting total cards of Player
-function count1() {
-  for (var s = 0; s < play_hand.length; s++) {
-    count += play_hand[s].value;
+// function count1() {
+//   for (var s = 0; s < play_hand.length; s++) {
+//     count += play_hand[s].value;
 
-    if (play_hand[0].name == 'A' && play_hand[s].name == 'K' || play_hand[0].name == 'A' && play_hand[s].name == 'Q' ||
-      play_hand[0].name == 'A' && play_hand[s].name == 'J' || play_hand[0].name == 'K' && play_hand[s].name == 'A' ||
-      play_hand[0].name == 'Q' && play_hand[s].name == 'A' || play_hand[0].name == 'J' && play_hand[s].name == 'A') {
-      console.log("\n B L A C K J A C K !\n Player Won!")
-    }
+//     if (play_hand[0].name == 'A' && play_hand[s].name == 'K' || play_hand[0].name == 'A' && play_hand[s].name == 'Q' ||
+//       play_hand[0].name == 'A' && play_hand[s].name == 'J' || play_hand[0].name == 'K' && play_hand[s].name == 'A' ||
+//       play_hand[0].name == 'Q' && play_hand[s].name == 'A' || play_hand[0].name == 'J' && play_hand[s].name == 'A') {
+//       console.log("\n B L A C K J A C K !\n Player Won!")
+//     }
 
-    else if (play_hand[s].name == "A" && count < 11) {
-      play_hand[s].value = 11;
-      console.log("-- A is 11 --")
-      count += 10;
-    }
-    else if (play_hand[s].value == "A" && count > 11) {
-      play_hand[s].value = 1;
-      console.log("-- A is 1 --")
-    }
+//     else if (play_hand[s].name == "A" && count < 11) {
+//       play_hand[s].value = 11;
+//       console.log("-- A is 11 --")
+//       count += 10;
+//     }
+//     else if (play_hand[s].value == "A" && count > 11) {
+//       play_hand[s].value = 1;
+//       console.log("-- A is 1 --")
+//     }
 
 
-  }
-  return count;
-}
+//   }
+//   return count;
+// }
 
 function displayCount() {
 
@@ -302,6 +302,7 @@ function player_count() {
     temp = 0;
 
   }
+
   return temp;
 }
 
@@ -327,7 +328,7 @@ function hit() {
 
 
   // console.log("////////");
-  $("#play_hand").empty();
+  // $("#play_hand").empty();
   $("#total").empty();
   $("#total_c").empty();
   display("play_hand", play_hand);

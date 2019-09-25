@@ -1,8 +1,8 @@
 body{
   background-image: url(images/bg.jpg);
-  background-repeat: no-repeat;
   background-size: 100%
 }
-/* .buttons{
-  margin-top: 300px;
-} */
+.header{
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  color: rgb(179, 172, 172)
+}

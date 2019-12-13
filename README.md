@@ -1,2 +1,1 @@
-Guys, make commits often.
- 
+Guys, make commits often
